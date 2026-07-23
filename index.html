@@ -112,7 +112,7 @@
     top:100%;
     left:0;
     min-width:260px;
-    background: var(--blanco);
+    background: linear-gradient(180deg, var(--rojo) 0%, var(--rojo-oscuro) 100%);
     box-shadow: var(--sombra);
     border-top:3px solid var(--dorado);
     z-index: 1100;
@@ -123,16 +123,16 @@
   .submenu li a{
     display:block;
     padding: .8rem 1.1rem;
-    color: var(--negro);
+    color: #fff;
     font-size:.82rem;
     font-weight:600;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid rgba(255,255,255,.18);
     transition: background .2s, color .2s, padding-left .2s;
   }
   .submenu li:last-child a{border-bottom:none;}
   .submenu li a:hover{
-    background: var(--rojo);
-    color:#fff;
+    background: var(--dorado);
+    color: var(--negro);
     padding-left:1.5rem;
   }
   /* submenu anidado (PREGRADO) */
@@ -143,12 +143,12 @@
     top:0;
     left:100%;
     min-width:280px;
-    background:#fff;
+    background: linear-gradient(180deg, var(--rojo) 0%, var(--rojo-oscuro) 100%);
     box-shadow: var(--sombra);
     border-top:3px solid var(--dorado);
   }
   .submenu .has-sub:hover > .sub-sub{display:block;}
-  .submenu .has-sub > a::after{content:" ▸"; float:right; color:var(--rojo);}
+  .submenu .has-sub > a::after{content:" ▸"; float:right; color:var(--dorado);}
 
   .menu-toggle{
     display:none;
