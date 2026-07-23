@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seguimiento a Graduados FCF</title>
+<style>
+  :root{
+    --rojo: #b3121c;
+    --rojo-oscuro: #7d0d14;
+    --negro: #161616;
+    --gris: #2b2b2b;
+    --dorado: #d9a441;
+    --blanco: #ffffff;
+    --gris-claro: #f5f4f2;
+    --sombra: 0 10px 30px rgba(0,0,0,.15);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    color: var(--negro);
+    background: var(--gris-claro);
+    line-height:1.6;
+  }
+  a{text-decoration:none; color:inherit;}
+  img{max-width:100%; display:block;}
+  ul{list-style:none;}
+
+  /* ===== BARRA SUPERIOR ===== */
+  .top-strip{
+    background: var(--negro);
+    color: var(--dorado);
+    font-size:.8rem;
+    text-align:center;
+    padding:.35rem 1rem;
+    letter-spacing:.5px;
+  }
+
+  /* ===== HEADER / NAV ===== */
+  header{
+    background: linear-gradient(90deg, var(--rojo) 0%, var(--rojo-oscuro) 100%);
+    position: sticky;
+    top:0;
+    z-index:1000;
+    box-shadow: var(--sombra);
+  }
+  .header-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:.6rem 1.2rem;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+  }
+  .brand img{
+    height:52px;
+    width:52px;
+    border-radius:50%;
+    background:#fff;
+    padding:3px;
+    box-shadow:0 0 0 2px var(--dorado);
+  }
+  .brand-text{
+    color:#fff;
+    font-weight:700;
+    font-size:1.05rem;
+    line-height:1.15;
+  }
+  .brand-text span{
+    display:block;
+    font-size:.7rem;
+    font-weight:400;
+    color:var(--dorado);
+    letter-spacing:1px;
+  }
+
+  nav.main-nav{
+    display:flex;
+  }
+  .main-nav > ul{
+    display:flex;
+    gap: .2rem;
+  }
+  .main-nav > ul > li{
+    position:relative;
+  }
+  .main-nav > ul > li > a, .main-nav > ul > li > span.top-link{
+    display:block;
+    padding: 1rem .9rem;
+    color:#fff;
+    font-weight:600;
+    font-size:.85rem;
+    letter-spacing:.5px;
+    cursor:pointer;
+    transition: background .25s, color .25s;
+    border-bottom:3px solid transparent;
+  }
+  .main-nav > ul > li > a:hover, .main-nav > ul > li > span.top-link:hover{
+    background: rgba(0,0,0,.2);
+    color: var(--dorado);
+    border-bottom:3px solid var(--dorado);
+  }
+  .submenu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:260px;
+    background: var(--blanco);
+    box-shadow: var(--sombra);
+    border-top:3px solid var(--dorado);
+    z-index: 1100;
+  }
+  .main-nav li:hover > .submenu{
+    display:block;
+  }
+  .submenu li a{
+    display:block;
+    padding: .8rem 1.1rem;
+    color: var(--negro);
+    font-size:.82rem;
+    font-weight:600;
+    border-bottom:1px solid #eee;
+    transition: background .2s, color .2s, padding-left .2s;
+  }
+  .submenu li:last-child a{border-bottom:none;}
+  .submenu li a:hover{
+    background: var(--rojo);
+    color:#fff;
+    padding-left:1.5rem;
+  }
+  /* submenu anidado (PREGRADO) */
+  .submenu .has-sub{position:relative;}
+  .submenu .sub-sub{
+    display:none;
+    position:absolute;
+    top:0;
+    left:100%;
+    min-width:280px;
+    background:#fff;
+    box-shadow: var(--sombra);
+    border-top:3px solid var(--dorado);
+  }
+  .submenu .has-sub:hover > .sub-sub{display:block;}
+  .submenu .has-sub > a::after{content:" ▸"; float:right; color:var(--rojo);}
+
+  .menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    font-size:1.8rem;
+    color:#fff;
+    cursor:pointer;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    height: min(70vh, 520px);
+    overflow:hidden;
+  }
+  .hero img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter: brightness(.55);
+  }
+  .hero-content{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+    padding:1rem;
+  }
+  .hero-content h1{
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight:800;
+    text-shadow: 0 3px 10px rgba(0,0,0,.6);
+    max-width:900px;
+  }
+  .hero-content .linea-dorada{
+    width:90px;
+    height:4px;
+    background:var(--dorado);
+    margin:1.1rem auto;
+  }
+  .hero-content p{
+    max-width:700px;
+    font-size:1rem;
+    opacity:.95;
+  }
+
+  /* ===== SECCIONES ===== */
+  section{
+    padding: 3.5rem 1.2rem;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .section-title{
+    text-align:center;
+    font-size:1.9rem;
+    font-weight:800;
+    color:var(--rojo);
+    margin-bottom:.4rem;
+  }
+  .section-sub{
+    text-align:center;
+    color:var(--gris);
+    font-size:.95rem;
+    max-width:750px;
+    margin: 0 auto 2.2rem;
+  }
+  .linea-central{
+    width:70px;
+    height:4px;
+    background:var(--dorado);
+    margin: .6rem auto 2rem;
+  }
+
+  /* Presentación facultad */
+  .presentacion{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:2.5rem;
+    align-items:center;
+    background:#fff;
+    border-radius:14px;
+    box-shadow: var(--sombra);
+    overflow:hidden;
+  }
+  .presentacion img{
+    height:100%;
+    object-fit:cover;
+    min-height:320px;
+  }
+  .presentacion .texto{
+    padding: 2rem 2.2rem 2rem 0;
+  }
+  .presentacion .texto h2{
+    color:var(--rojo);
+    font-size:1.5rem;
+    margin-bottom:.4rem;
+  }
+  .presentacion .texto h3{
+    color:var(--negro);
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:1rem;
+  }
+  .presentacion .texto p{
+    color:var(--gris);
+    margin-bottom:1.3rem;
+  }
+  .servicios-lista{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.6rem;
+  }
+  .servicios-lista span{
+    background: var(--rojo);
+    color:#fff;
+    padding:.4rem .9rem;
+    border-radius:30px;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.5px;
+    transition: transform .2s, background .2s;
+  }
+  .servicios-lista span:hover{
+    background: var(--dorado);
+    color:var(--negro);
+    transform: translateY(-3px);
+  }
+
+  /* Tarjetas servicios con imagen */
+  .grid-servicios{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap:1.6rem;
+  }
+  .card-servicio{
+    background:#fff;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow: var(--sombra);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .card-servicio:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 18px 34px rgba(0,0,0,.22);
+  }
+  .card-servicio .img-wrap{
+    height:170px;
+    overflow:hidden;
+  }
+  .card-servicio img{
+    width:100%; height:100%; object-fit:cover;
+    transition: transform .5s;
+  }
+  .card-servicio:hover img{transform: scale(1.1);}
+  .card-servicio .info{
+    padding:1.1rem 1.2rem 1.4rem;
+    border-top:4px solid var(--dorado);
+  }
+  .card-servicio .info h4{
+    color:var(--rojo);
+    font-size:1.02rem;
+    margin-bottom:.3rem;
+  }
+  .card-servicio .info p{
+    font-size:.85rem;
+    color:var(--gris);
+  }
+
+  /* Enlaces institucionales */
+  .grid-enlaces{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap:1.4rem;
+  }
+  .card-enlace{
+    background:#fff;
+    border-radius:14px;
+    padding:1.6rem 1.2rem;
+    text-align:center;
+    box-shadow: var(--sombra);
+    transition: transform .25s, background .25s, color .25s;
+    border:2px solid transparent;
+  }
+  .card-enlace:hover{
+    transform: translateY(-6px);
+    background: var(--rojo);
+    color:#fff;
+    border-color: var(--dorado);
+  }
+  .card-enlace .icono{
+    width:60px; height:60px;
+    margin:0 auto 1rem;
+    border-radius:50%;
+    background: var(--gris-claro);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem;
+    color: var(--rojo);
+    transition: background .25s, color .25s;
+  }
+  .card-enlace:hover .icono{
+    background:#fff;
+    color: var(--rojo);
+  }
+  .card-enlace h4{font-size:.95rem; font-weight:700;}
+
+  /* Misión / Visión */
+  .grid-mv{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1.8rem;
+  }
+  .card-mv{
+    background: var(--negro);
+    color:#f2f2f2;
+    padding:2rem;
+    border-radius:14px;
+    position:relative;
+    box-shadow: var(--sombra);
+    border-top:5px solid var(--dorado);
+  }
+  .card-mv h3{
+    color:var(--dorado);
+    margin-bottom:.8rem;
+    font-size:1.2rem;
+    letter-spacing:1px;
+  }
+  .card-mv p{
+    font-size:.92rem;
+    color:#e3e3e3;
+  }
+
+  .foto-institucional{
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow: var(--sombra);
+    margin: 2.5rem auto;
+  }
+
+  /* Autoridades */
+  .grid-autoridades{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap:1.8rem;
+    justify-items:center;
+  }
+  .card-autoridad{
+    background:#fff;
+    border-radius:14px;
+    text-align:center;
+    padding: 2rem 1.4rem 1.6rem;
+    box-shadow: var(--sombra);
+    max-width:280px;
+    transition: transform .3s;
+  }
+  .card-autoridad:hover{transform: translateY(-6px);}
+  .avatar{
+    width:120px; height:120px;
+    border-radius:50%;
+    margin:0 auto 1.1rem;
+    background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
+    display:flex; align-items:center; justify-content:center;
+    border:4px solid var(--dorado);
+  }
+  .avatar svg{width:60px; height:60px; fill:#fff;}
+  .card-autoridad h4{color:var(--rojo); font-size:1rem; margin-bottom:.2rem;}
+  .card-autoridad .cargo{
+    color:var(--dorado);
+    background:var(--negro);
+    display:inline-block;
+    padding:.25rem .8rem;
+    border-radius:20px;
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-top:.4rem;
+  }
+  .card-autoridad .anio{color:var(--gris); font-size:.8rem; margin-top:.4rem;}
+
+  /* Mapa */
+  .mapa-wrap{
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow: var(--sombra);
+    margin-bottom:1.6rem;
+  }
+  .mapa-wrap iframe{
+    width:100%;
+    height:400px;
+    border:0;
+    display:block;
+    filter: grayscale(.15);
+  }
+  .btn-mapa{
+    display:inline-block;
+    background: var(--rojo);
+    color:#fff;
+    padding:.8rem 1.8rem;
+    border-radius:30px;
+    font-weight:700;
+    font-size:.85rem;
+    letter-spacing:1px;
+    transition: background .25s, transform .25s;
+    box-shadow: var(--sombra);
+  }
+  .btn-mapa:hover{background: var(--dorado); color:var(--negro); transform: translateY(-3px);}
+  .centrado{text-align:center;}
+
+  /* Contacto */
+  .franja-contacto{
+    background: var(--negro);
+    color:#fff;
+    padding: 3rem 1.2rem;
+  }
+  .grid-contacto{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap:1.6rem;
+    text-align:center;
+  }
+  .item-contacto .icono{
+    width:56px;height:56px;
+    background: var(--rojo);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto .8rem;
+    font-size:1.4rem;
+    transition: background .25s, transform .25s;
+  }
+  .item-contacto:hover .icono{background:var(--dorado); color:var(--negro); transform: rotate(8deg) scale(1.05);}
+  .item-contacto a{font-size:.85rem; color:#ddd; word-break:break-word;}
+  .item-contacto a:hover{color:var(--dorado);}
+
+  /* Footer */
+  footer{
+    background: var(--rojo-oscuro);
+    color:#fff;
+  }
+  .footer-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding: 2.2rem 1.2rem 1.2rem;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:2rem;
+  }
+  .footer-col h5{
+    color:var(--dorado);
+    margin-bottom:.9rem;
+    font-size:.9rem;
+    letter-spacing:1px;
+  }
+  .footer-col ul li{margin-bottom:.5rem;}
+  .footer-col ul li a{
+    font-size:.82rem;
+    color:#f1d9d9;
+    transition: color .2s, padding-left .2s;
+  }
+  .footer-col ul li a:hover{color:var(--dorado); padding-left:4px;}
+  .footer-social{display:flex; gap:.8rem; margin-top:.6rem;}
+  .footer-social a{
+    width:38px; height:38px;
+    border-radius:50%;
+    background: rgba(255,255,255,.12);
+    display:flex; align-items:center; justify-content:center;
+    transition: background .25s, transform .25s;
+  }
+  .footer-social a:hover{background:var(--dorado); color:var(--negro); transform: translateY(-3px);}
+  .footer-bottom{
+    text-align:center;
+    background: rgba(0,0,0,.25);
+    padding: .9rem;
+    font-size:.75rem;
+    color:#eaeaea;
+  }
+  .footer-bottom a{color:var(--dorado);}
+
+  /* Scroll top */
+  .scroll-top{
+    position:fixed;
+    right:20px; bottom:20px;
+    width:46px; height:46px;
+    border-radius:50%;
+    background: var(--rojo);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: var(--sombra);
+    opacity:0; pointer-events:none;
+    transition: opacity .3s, background .3s;
+    z-index:999;
+    font-size:1.3rem;
+    cursor:pointer;
+    border:none;
+  }
+  .scroll-top.visible{opacity:1; pointer-events:auto;}
+  .scroll-top:hover{background:var(--dorado); color:var(--negro);}
+
+  @media (max-width: 920px){
+    .presentacion{grid-template-columns:1fr;}
+    .presentacion .texto{padding: 1.6rem;}
+    .grid-mv{grid-template-columns:1fr;}
+  }
+
+  @media (max-width: 860px){
+    .menu-toggle{display:block;}
+    nav.main-nav{
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      background: var(--rojo-oscuro);
+      flex-direction:column;
+      max-height:0;
+      overflow:hidden;
+      transition: max-height .35s ease;
+    }
+    nav.main-nav.open{max-height:900px;}
+    .main-nav > ul{flex-direction:column; width:100%;}
+    .main-nav > ul > li > a, .main-nav > ul > li > span.top-link{
+      padding:1rem 1.4rem;
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+    .submenu, .sub-sub{
+      position:static;
+      box-shadow:none;
+      width:100%;
+      border-top:none;
+    }
+    .submenu{display:none;}
+    li.open > .submenu{display:block;}
+    .sub-sub{display:none;}
+    .has-sub.open > .sub-sub{display:block;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top-strip">FACULTAD DE CULTURA FÍSICA — UNIVERSIDAD CENTRAL DEL ECUADOR</div>
+
+<header>
+  <div class="header-inner">
+    <a href="https://seguimientoagraduadosculturafisica.wordpress.com" class="brand">
+      <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/09/imagen_2023-09-28_172653284.png" alt="Logo Facultad de Cultura Física">
+      <div class="brand-text">Seguimiento a Graduados FCF<span>Facultad de Cultura Física · UCE</span></div>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com">INICIO</a></li>
+
+        <li class="has-children">
+          <span class="top-link">CARRERAS</span>
+          <ul class="submenu">
+            <li class="has-sub">
+              <a href="#">PREGRADO</a>
+              <ul class="sub-sub">
+                <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=113">PEDAGOGÍA DE ACTIVIDAD FÍSICA Y DEPORTE</a></li>
+                <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/actividad-fisica/">ENTRENAMIENTO DEPORTIVO</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li class="has-children">
+          <a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=260" class="top-link" style="display:block;">POSGRADO</a>
+          <ul class="submenu">
+            <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/maestria-en-entrenamiento-deportivo/">MAESTRÍA EN ACTIVIDAD FÍSICA</a></li>
+            <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=217">MAESTRÍA EN ENTRENAMIENTO DEPORTIVO</a></li>
+          </ul>
+        </li>
+
+        <li class="has-children">
+          <a href="https://seguimientoagraduadosculturafisica.wordpress.com/seguimiento-a-graduados/" class="top-link" style="display:block;">GRADUADOS</a>
+          <ul class="submenu">
+            <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=276">RESULTADOS GRADO</a></li>
+            <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=433">RESULTADOS POSGRADO</a></li>
+          </ul>
+        </li>
+
+        <li class="has-children">
+          <span class="top-link">BOLSA DE EMPLEO</span>
+          <ul class="submenu">
+            <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/bolsa-de-empleos/">BOLSA DE EMPLEOS</a></li>
+            <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/educacion-continua/">EDUCACIÓN CONTINUA</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_151303072.png" alt="Facultad de Cultura Física">
+  <div class="hero-content">
+    <h1>FACULTAD DE CULTURA FÍSICA</h1>
+    <div class="linea-dorada"></div>
+    <p>Página exclusiva para profesionales graduados en la Universidad Central del Ecuador</p>
+  </div>
+</div>
+
+<!-- PRESENTACIÓN -->
+<section id="facultad">
+  <div class="presentacion">
+    <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_172355883.png" alt="Instalaciones de la Facultad de Cultura Física">
+    <div class="texto">
+      <h2>Facultad de Cultura Física</h2>
+      <h3>Página exclusiva para profesionales graduados</h3>
+      <p>La Facultad de Cultura Física tiene un compromiso claro: preparar profesionales de acuerdo con su misión, visión, objetivos y perfiles profesionales, adaptándose a las necesidades de la sociedad.</p>
+      <p><strong>Servicios que brinda la Facultad:</strong></p>
+      <div class="servicios-lista">
+        <span>GIMNASIO</span>
+        <span>FISIOTERAPIA</span>
+        <span>BIBLIOTECA</span>
+        <span>ESCENARIOS DEPORTIVOS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS CON IMÁGENES -->
+<section id="servicios">
+  <h2 class="section-title">Nuestros Servicios</h2>
+  <div class="linea-central"></div>
+  <div class="grid-servicios">
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_151303072.png" alt="Gimnasio universitario">
+      </div>
+      <div class="info">
+        <h4>Gimnasio</h4>
+        <p>Espacios equipados para el entrenamiento físico y la preparación deportiva de estudiantes y graduados.</p>
+      </div>
+    </div>
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_160639113.png" alt="Servicio de fisioterapia">
+      </div>
+      <div class="info">
+        <h4>Fisioterapia</h4>
+        <p>Atención especializada para la recuperación y el bienestar físico de la comunidad universitaria.</p>
+      </div>
+    </div>
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_172355883.png" alt="Biblioteca">
+      </div>
+      <div class="info">
+        <h4>Biblioteca</h4>
+        <p>Recursos bibliográficos y espacios de estudio para el desarrollo académico e investigativo.</p>
+      </div>
+    </div>
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_205236794-3.png" alt="Escenarios deportivos">
+      </div>
+      <div class="info">
+        <h4>Escenarios Deportivos</h4>
+        <p>Instalaciones para la práctica y competencia de diversas disciplinas deportivas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENLACES INSTITUCIONALES -->
+<section id="enlaces">
+  <h2 class="section-title">Canales Institucionales</h2>
+  <div class="linea-central"></div>
+  <div class="grid-enlaces">
+    <a class="card-enlace" href="https://www.facebook.com/fcf.uce" target="_blank" rel="noopener">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-18_211002465.png" alt="Facebook" style="width:34px;height:34px;object-fit:contain;"></div>
+      <h4>Página de Facebook</h4>
+    </a>
+    <a class="card-enlace" href="https://www.uce.edu.ec/web/fcf" target="_blank" rel="noopener">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/navegador-web.png" alt="Página Web" style="width:34px;height:34px;object-fit:contain;"></div>
+      <h4>Página Web Institucional</h4>
+    </a>
+    <a class="card-enlace" href="mailto:decanato.fcf@uce.edu.ec">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/gmail.png" alt="Correo" style="width:34px;height:34px;object-fit:contain;"></div>
+      <h4>Correo Electrónico</h4>
+    </a>
+  </div>
+</section>
+
+<!-- MISION VISION -->
+<section id="mision-vision">
+  <h2 class="section-title">Misión y Visión</h2>
+  <div class="linea-central"></div>
+  <div class="grid-mv">
+    <div class="card-mv">
+      <h3>MISIÓN</h3>
+      <p>La Facultad de Cultura Física es una unidad académica de la Universidad Central del Ecuador, dedicada a la formación de profesionales íntegros, innovadores, creativos, competitivos y solidarios en las áreas de la Educación Física, el Deporte y la Recreación; apoyados en la ciencia, en la tecnología, en el arte y en la cultura; bajo criterios de calidad y excelencia académica; con proyección social, investigativa y docente en el marco del desarrollo para el buen vivir.</p>
+    </div>
+    <div class="card-mv">
+      <h3>VISIÓN</h3>
+      <p>La Facultad de Cultura Física será una unidad académica que lidere la formación de profesionales de tercer y cuarto niveles; reconocida por su calidad científica, humanista y profesional; orientada al desarrollo humano, educativo, psicomotor, deportivo, recreativo y cultural; en el marco de innovación e inclusión que le permite desempeñarse en el ámbito de la Cultura Física con sentido de identidad, que aporte efectivamente al desarrollo del país y que pueda competir con ventaja en el mundo moderno.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTORIDADES -->
+<section id="autoridades">
+  <h2 class="section-title">Autoridades</h2>
+  <div class="linea-central"></div>
+  <div class="grid-autoridades">
+    <div class="card-autoridad">
+      <div class="avatar">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/09/2.jpeg" alt="MSc. Eduardo Arturo Aguirre Obando - Decano" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+      </div>
+      <h4>MSc. Eduardo Arturo Aguirre Obando</h4>
+      <span class="cargo">DECANO</span>
+      <div class="anio">2024</div>
+    </div>
+    <div class="card-autoridad">
+      <div class="avatar">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/09/3.jpeg" alt="Ph.D. Pablo Anthony Rendón Morales - Subdecano" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+      </div>
+      <h4>Ph.D. Pablo Anthony Rendón Morales</h4>
+      <span class="cargo">SUBDECANO</span>
+      <div class="anio">2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section id="mapa">
+  <h2 class="section-title">Mapa Universitario</h2>
+  <div class="linea-central"></div>
+  <div class="mapa-wrap">
+    <iframe src="https://www.google.com/maps/d/embed?mid=1DD7d2mYKb8wK9OCazabvXjF7fHA&hl=es" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="centrado">
+    <a class="btn-mapa" href="https://www.google.com/maps/d/u/0/viewer?mid=1DD7d2mYKb8wK9OCazabvXjF7fHA&hl=en_US&ll=-0.19987881219134285%2C-78.50523523149901&z=17" target="_blank" rel="noopener">VER MAPA COMPLETO</a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<div class="franja-contacto">
+  <div class="grid-contacto">
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/mapas-y-banderas.png" alt="Ubicación" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="https://www.google.com/maps/place/Estadio+universitario/@-0.2018875,-78.5067076,17z/data=!3m1!4b1!4m6!3m5!1s0x91d59a38a6aaaaab:0x3f2e13331ea25122!8m2!3d-0.2018929!4d-78.5041273!16s%2Fg%2F121xjs50?entry=ttu" target="_blank" rel="noopener">Av. Mariscal Sucre y Jorge Ávila; Av. América y Av. Bolivia, Quito, Ecuador</a>
+    </div>
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/correo.png" alt="Correo" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="mailto:decanato.fcf@uce.edu.ec">decanato.fcf@uce.edu.ec</a>
+    </div>
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/llamada-telefonica.png" alt="Teléfono" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="tel:+59322521827">(02) 252-1827</a>
+    </div>
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/sitio-web.png" alt="Sitio web" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="https://www.uce.edu.ec/web/fcf" target="_blank" rel="noopener">uce.edu.ec/web/fcf</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h5>SEGUIMIENTO A GRADUADOS FCF</h5>
+      <p style="font-size:.82rem; color:#f1d9d9; max-width:260px;">Facultad de Cultura Física — Universidad Central del Ecuador.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/fcf.uce" target="_blank" rel="noopener" aria-label="Facebook"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-18_211002465.png" alt="Facebook" style="width:20px;height:20px;object-fit:contain;"></a>
+        <a href="https://www.uce.edu.ec/web/fcf" target="_blank" rel="noopener" aria-label="Web"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/navegador-web.png" alt="Web" style="width:20px;height:20px;object-fit:contain;"></a>
+        <a href="mailto:decanato.fcf@uce.edu.ec" aria-label="Correo"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/gmail.png" alt="Correo" style="width:20px;height:20px;object-fit:contain;"></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>CARRERAS</h5>
+      <ul>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=113">Pedagogía de Actividad Física y Deporte</a></li>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/actividad-fisica/">Entrenamiento Deportivo</a></li>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/maestria-en-entrenamiento-deportivo/">Maestría en Actividad Física</a></li>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=217">Maestría en Entrenamiento Deportivo</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>GRADUADOS</h5>
+      <ul>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/seguimiento-a-graduados/">Seguimiento a Graduados</a></li>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=276">Resultados Grado</a></li>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/?page_id=433">Resultados Posgrado</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>BOLSA DE EMPLEO</h5>
+      <ul>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/bolsa-de-empleos/">Bolsa de Empleos</a></li>
+        <li><a href="https://seguimientoagraduadosculturafisica.wordpress.com/educacion-continua/">Educación Continua</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Seguimiento a Graduados FCF — Facultad de Cultura Física, Universidad Central del Ecuador.
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Subir">↑</button>
+
+<script>
+  // Menú móvil
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
+  toggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+  // Submenús desplegables en móvil (tap)
+  document.querySelectorAll('.has-children > .top-link').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(window.innerWidth <= 860){
+        e.preventDefault();
+        el.parentElement.classList.toggle('open');
+      }
+    });
+  });
+  document.querySelectorAll('.has-sub > a').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(window.innerWidth <= 860){
+        e.preventDefault();
+        el.parentElement.classList.toggle('open');
+      }
+    });
+  });
+
+  // Botón subir
+  const scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', ()=>{
+    if(window.scrollY > 400){ scrollBtn.classList.add('visible'); }
+    else{ scrollBtn.classList.remove('visible'); }
+  });
+  scrollBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+</script>
+
+</body>
+</html>
