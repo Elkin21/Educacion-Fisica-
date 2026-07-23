@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Educación Continua · Seguimiento a Graduados FCF</title>
+<title>Seguimiento a Graduados FCF</title>
 <style>
   :root{
     --rojo: #b3121c;
@@ -589,218 +589,7 @@
     .sub-sub{display:none;}
     .has-sub.open > .sub-sub{display:block;}
   }
-</style><style>
-  /* ===== ESTILOS PÁGINAS INTERIORES ===== */
-  .breadcrumb{
-    background: var(--gris-claro);
-    padding: .8rem 1.2rem;
-    font-size:.8rem;
-    color: var(--gris);
-    border-bottom:1px solid #e6e2dd;
-  }
-  .breadcrumb a{color:var(--rojo); font-weight:700;}
-  .breadcrumb span{color:var(--dorado); margin:0 .3rem;}
-
-  .page-hero{
-    position:relative;
-    height: 300px;
-    overflow:hidden;
-  }
-  .page-hero img{
-    width:100%; height:100%; object-fit:cover;
-    filter:brightness(.5);
-  }
-  .page-hero-content{
-    position:absolute; inset:0;
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    text-align:center; color:#fff; padding:1rem;
-  }
-  .page-hero-content .eyebrow{
-    color:var(--dorado);
-    letter-spacing:2px;
-    font-size:.78rem;
-    font-weight:700;
-    margin-bottom:.5rem;
-  }
-  .page-hero-content h1{
-    font-size:clamp(1.4rem,3.6vw,2.3rem);
-    font-weight:800;
-    max-width:850px;
-    text-shadow: 0 3px 10px rgba(0,0,0,.6);
-  }
-  .page-hero-content .linea-dorada{
-    width:80px; height:4px; background:var(--dorado); margin:1rem auto;
-  }
-
-  .contenido{
-    max-width:1100px;
-    margin:0 auto;
-    padding: 3rem 1.2rem;
-  }
-  .contenido h2{
-    color:var(--rojo);
-    font-size:1.5rem;
-    margin-bottom:.6rem;
-  }
-  .contenido h3{
-    color:var(--negro);
-    font-size:1.15rem;
-    margin: 1.6rem 0 .6rem;
-  }
-  .contenido p{
-    color:var(--gris);
-    margin-bottom:1rem;
-  }
-  .linea-central-sm{
-    width:60px; height:4px; background:var(--dorado); margin-bottom:1.6rem;
-  }
-
-  .dos-columnas{
-    display:grid;
-    grid-template-columns: 1.1fr .9fr;
-    gap:2.5rem;
-    align-items:start;
-  }
-  .dos-columnas img{
-    border-radius:14px;
-    box-shadow: var(--sombra);
-  }
-  .caja-lateral{
-    background:#fff;
-    border-radius:14px;
-    box-shadow: var(--sombra);
-    padding:1.6rem;
-    border-top:5px solid var(--dorado);
-  }
-  .caja-lateral h4{
-    color:var(--rojo);
-    font-size:1rem;
-    margin-bottom:.8rem;
-  }
-  .caja-lateral ul{margin-bottom:0;}
-  .caja-lateral li{
-    font-size:.85rem;
-    color:var(--gris);
-    padding:.5rem 0;
-    border-bottom:1px dashed #e2ded8;
-    display:flex; gap:.5rem;
-  }
-  .caja-lateral li:last-child{border-bottom:none;}
-  .caja-lateral li::before{content:"●"; color:var(--dorado);}
-
-  .lista-perfil{margin: 1rem 0 1.6rem;}
-  .lista-perfil li{
-    background:#fff;
-    border-left:4px solid var(--rojo);
-    padding:.9rem 1.1rem;
-    margin-bottom:.7rem;
-    border-radius:6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.06);
-    color:var(--gris);
-    font-size:.92rem;
-    transition: transform .2s, border-color .2s;
-  }
-  .lista-perfil li:hover{
-    transform: translateX(6px);
-    border-color: var(--dorado);
-  }
-
-  .galeria-mini{
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
-    gap:.8rem;
-    margin: 1.6rem 0 2rem;
-  }
-  .galeria-mini img{
-    width:100%; height:130px; object-fit:cover;
-    border-radius:10px;
-    box-shadow: var(--sombra);
-    transition: transform .3s;
-  }
-  .galeria-mini img:hover{transform: scale(1.04);}
-
-  .cta-franja{
-    background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
-    color:#fff;
-    border-radius:14px;
-    padding: 2rem;
-    text-align:center;
-    margin-top:2.5rem;
-    box-shadow: var(--sombra);
-  }
-  .cta-franja h3{color:#fff; margin-bottom:.6rem;}
-  .cta-franja p{color:#f4dede; margin-bottom:1.2rem;}
-  .cta-franja a{
-    display:inline-block;
-    background: var(--dorado);
-    color: var(--negro);
-    padding:.8rem 1.8rem;
-    border-radius:30px;
-    font-weight:700;
-    font-size:.85rem;
-    letter-spacing:.5px;
-    transition: transform .2s, background .2s;
-  }
-  .cta-franja a:hover{transform: translateY(-3px); background:#fff;}
-
-  .grid-programas{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-    gap:1.6rem;
-    margin: 1.6rem 0 2rem;
-  }
-  .card-programa{
-    background:#fff;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow: var(--sombra);
-    transition: transform .3s;
-  }
-  .card-programa:hover{transform: translateY(-6px);}
-  .card-programa img{width:100%; height:160px; object-fit:cover;}
-  .card-programa .cp-info{padding:1.2rem; border-top:4px solid var(--dorado);}
-  .card-programa h4{color:var(--rojo); font-size:1rem; margin-bottom:.5rem;}
-  .card-programa p{font-size:.85rem; color:var(--gris); margin-bottom:.9rem;}
-  .card-programa a{
-    color:var(--rojo);
-    font-weight:700;
-    font-size:.82rem;
-    letter-spacing:.5px;
-  }
-  .card-programa a:hover{color:var(--dorado);}
-
-  .tabla-info{
-    width:100%;
-    border-collapse:collapse;
-    margin: 1rem 0 2rem;
-    background:#fff;
-    box-shadow: var(--sombra);
-    border-radius:10px;
-    overflow:hidden;
-  }
-  .tabla-info th{
-    background: var(--negro);
-    color:var(--dorado);
-    text-align:left;
-    padding:.8rem 1rem;
-    font-size:.78rem;
-    letter-spacing:.5px;
-  }
-  .tabla-info td{
-    padding:.8rem 1rem;
-    font-size:.85rem;
-    color:var(--gris);
-    border-bottom:1px solid #eee;
-  }
-  .tabla-info tr:last-child td{border-bottom:none;}
-
-  @media(max-width:820px){
-    .dos-columnas{grid-template-columns:1fr;}
-    .galeria-mini{grid-template-columns:repeat(2,1fr);}
-  }
 </style>
-
 </head>
 <body>
 
@@ -860,39 +649,174 @@
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="index.html">INICIO</a><span>›</span>BOLSA DE EMPLEO
-</div>
-
-<div class="page-hero">
-  <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_160639113.png" alt="Educación Continua">
-  <div class="page-hero-content">
-    <div class="eyebrow">FACULTAD DE CULTURA FÍSICA</div>
-    <h1>Educación Continua</h1>
+<!-- HERO -->
+<div class="hero">
+  <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_151303072.png" alt="Facultad de Cultura Física">
+  <div class="hero-content">
+    <h1>FACULTAD DE CULTURA FÍSICA</h1>
     <div class="linea-dorada"></div>
+    <p>Página exclusiva para profesionales graduados en la Universidad Central del Ecuador</p>
   </div>
 </div>
 
-<div class="contenido">
+<!-- PRESENTACIÓN -->
+<section id="facultad">
+  <div class="presentacion">
+    <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_172355883.png" alt="Instalaciones de la Facultad de Cultura Física">
+    <div class="texto">
+      <h2>Facultad de Cultura Física</h2>
+      <h3>Página exclusiva para profesionales graduados</h3>
+      <p>La Facultad de Cultura Física tiene un compromiso claro: preparar profesionales de acuerdo con su misión, visión, objetivos y perfiles profesionales, adaptándose a las necesidades de la sociedad.</p>
+      <p><strong>Servicios que brinda la Facultad:</strong></p>
+      <div class="servicios-lista">
+        <span>GIMNASIO</span>
+        <span>FISIOTERAPIA</span>
+        <span>BIBLIOTECA</span>
+        <span>ESCENARIOS DEPORTIVOS</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2>Educación Continua</h2>
-<div class="linea-central-sm"></div>
-<p>La Facultad de Cultura Física ofrece programas de educación continua orientados a la actualización profesional de sus graduados y de la comunidad en general, en temáticas relacionadas con la actividad física, el entrenamiento deportivo, la fisioterapia y la gestión deportiva.</p>
-<h3>Tipos de programas</h3>
-<ul class="lista-perfil">
-  <li>Cursos de actualización en metodologías del entrenamiento deportivo.</li>
-  <li>Talleres de prevención y recuperación de lesiones deportivas.</li>
-  <li>Certificaciones en gestión de instalaciones y eventos deportivos.</li>
-  <li>Seminarios sobre actividad física, salud y calidad de vida.</li>
-</ul>
-<div class="cta-franja">
-  <h3>¿Quieres conocer la oferta vigente?</h3>
-  <p>Contáctanos para recibir información sobre los próximos cursos y talleres.</p>
-  <a href="mailto:decanato.fcf@uce.edu.ec">Solicitar información</a>
+<!-- SERVICIOS CON IMÁGENES -->
+<section id="servicios">
+  <h2 class="section-title">Nuestros Servicios</h2>
+  <div class="linea-central"></div>
+  <div class="grid-servicios">
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhoq4T0fRbBGgn5fP3Nc1mFWncb8LjHHPQtGKYyKI5JujrmLdHHmFev_CftSoxmXvh490i_u4u63vDbmHSOtJOxBYu6fn572jpywupk1Dkeacpi8vbBeCcaIG66OMYVlhjzryJRWEE9ckl2/s1600/IMG_0861%255B1%255D.JPG" alt="Gimnasio universitario">
+      </div>
+      <div class="info">
+        <h4>Gimnasio</h4>
+        <p>Espacios equipados para el entrenamiento físico y la preparación deportiva de estudiantes y graduados.</p>
+      </div>
+    </div>
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://repositorio.uce.edu.ec/archivos/gvgaibor/DOCUMENTOS%20DE%20FISIOTERAPIA/FOTOGRAFIAS/FOTO%20PORTADA%202.png" alt="Servicio de fisioterapia">
+      </div>
+      <div class="info">
+        <h4>Fisioterapia</h4>
+        <p>Atención especializada para la recuperación y el bienestar físico de la comunidad universitaria.</p>
+      </div>
+    </div>
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaq1hZKmuGVQLzEWZC2E2i3FtCr8MB4V8L_l0Cc75xnu-t9ngPA47szmXc&s=10" alt="Biblioteca">
+      </div>
+      <div class="info">
+        <h4>Biblioteca</h4>
+        <p>Recursos bibliográficos y espacios de estudio para el desarrollo académico e investigativo.</p>
+      </div>
+    </div>
+    <div class="card-servicio">
+      <div class="img-wrap">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-01_205236794-3.png" alt="Escenarios deportivos">
+      </div>
+      <div class="info">
+        <h4>Escenarios Deportivos</h4>
+        <p>Instalaciones para la práctica y competencia de diversas disciplinas deportivas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENLACES INSTITUCIONALES -->
+<section id="enlaces">
+  <h2 class="section-title">Canales Institucionales</h2>
+  <div class="linea-central"></div>
+  <div class="grid-enlaces">
+    <a class="card-enlace" href="https://www.facebook.com/fcf.uce" target="_blank" rel="noopener">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/imagen_2023-10-18_211002465.png" alt="Facebook" style="width:34px;height:34px;object-fit:contain;"></div>
+      <h4>Página de Facebook</h4>
+    </a>
+    <a class="card-enlace" href="https://www.uce.edu.ec/web/fcf" target="_blank" rel="noopener">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/navegador-web.png" alt="Página Web" style="width:34px;height:34px;object-fit:contain;"></div>
+      <h4>Página Web Institucional</h4>
+    </a>
+    <a class="card-enlace" href="mailto:decanato.fcf@uce.edu.ec">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/gmail.png" alt="Correo" style="width:34px;height:34px;object-fit:contain;"></div>
+      <h4>Correo Electrónico</h4>
+    </a>
+  </div>
+</section>
+
+<!-- MISION VISION -->
+<section id="mision-vision">
+  <h2 class="section-title">Misión y Visión</h2>
+  <div class="linea-central"></div>
+  <div class="grid-mv">
+    <div class="card-mv">
+      <h3>MISIÓN</h3>
+      <p>La Facultad de Cultura Física es una unidad académica de la Universidad Central del Ecuador, dedicada a la formación de profesionales íntegros, innovadores, creativos, competitivos y solidarios en las áreas de la Educación Física, el Deporte y la Recreación; apoyados en la ciencia, en la tecnología, en el arte y en la cultura; bajo criterios de calidad y excelencia académica; con proyección social, investigativa y docente en el marco del desarrollo para el buen vivir.</p>
+    </div>
+    <div class="card-mv">
+      <h3>VISIÓN</h3>
+      <p>La Facultad de Cultura Física será una unidad académica que lidere la formación de profesionales de tercer y cuarto niveles; reconocida por su calidad científica, humanista y profesional; orientada al desarrollo humano, educativo, psicomotor, deportivo, recreativo y cultural; en el marco de innovación e inclusión que le permite desempeñarse en el ámbito de la Cultura Física con sentido de identidad, que aporte efectivamente al desarrollo del país y que pueda competir con ventaja en el mundo moderno.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTORIDADES -->
+<section id="autoridades">
+  <h2 class="section-title">Autoridades</h2>
+  <div class="linea-central"></div>
+  <div class="grid-autoridades">
+    <div class="card-autoridad">
+      <div class="avatar">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/09/2.jpeg" alt="MSc. Eduardo Arturo Aguirre Obando - Decano" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+      </div>
+      <h4>MSc. Eduardo Arturo Aguirre Obando</h4>
+      <span class="cargo">DECANO</span>
+      <div class="anio">2024</div>
+    </div>
+    <div class="card-autoridad">
+      <div class="avatar">
+        <img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/09/3.jpeg" alt="Ph.D. Pablo Anthony Rendón Morales - Subdecano" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+      </div>
+      <h4>Ph.D. Pablo Anthony Rendón Morales</h4>
+      <span class="cargo">SUBDECANO</span>
+      <div class="anio">2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section id="mapa">
+  <h2 class="section-title">Mapa Universitario</h2>
+  <div class="linea-central"></div>
+  <div class="mapa-wrap">
+    <iframe src="https://www.google.com/maps/d/embed?mid=1DD7d2mYKb8wK9OCazabvXjF7fHA&hl=es" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="centrado">
+    <a class="btn-mapa" href="https://www.google.com/maps/d/u/0/viewer?mid=1DD7d2mYKb8wK9OCazabvXjF7fHA&hl=en_US&ll=-0.19987881219134285%2C-78.50523523149901&z=17" target="_blank" rel="noopener">VER MAPA COMPLETO</a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<div class="franja-contacto">
+  <div class="grid-contacto">
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/mapas-y-banderas.png" alt="Ubicación" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="https://www.google.com/maps/place/Estadio+universitario/@-0.2018875,-78.5067076,17z/data=!3m1!4b1!4m6!3m5!1s0x91d59a38a6aaaaab:0x3f2e13331ea25122!8m2!3d-0.2018929!4d-78.5041273!16s%2Fg%2F121xjs50?entry=ttu" target="_blank" rel="noopener">Av. Mariscal Sucre y Jorge Ávila; Av. América y Av. Bolivia, Quito, Ecuador</a>
+    </div>
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/correo.png" alt="Correo" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="mailto:decanato.fcf@uce.edu.ec">decanato.fcf@uce.edu.ec</a>
+    </div>
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/llamada-telefonica.png" alt="Teléfono" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="tel:+59322521827">(02) 252-1827</a>
+    </div>
+    <div class="item-contacto">
+      <div class="icono"><img src="https://seguimientoagraduadosculturafisica.wordpress.com/wp-content/uploads/2023/10/sitio-web.png" alt="Sitio web" style="width:28px;height:28px;object-fit:contain;"></div>
+      <a href="https://www.uce.edu.ec/web/fcf" target="_blank" rel="noopener">uce.edu.ec/web/fcf</a>
+    </div>
+  </div>
 </div>
 
-</div>
-
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
