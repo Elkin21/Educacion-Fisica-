@@ -214,6 +214,39 @@
     .top-bar{flex-direction:column; align-items:flex-start;}
     nav.main-nav{width:100%;}
   }
+
+  /* ===== ENCUESTA DE SEGUIMIENTO A GRADUADOS ===== */
+  .encuesta-contador{
+    display:inline-block; background:var(--gris-claro); border:1px solid #e3e8f5;
+    color:var(--azul-oscuro); font-family:'Oswald',sans-serif; font-size:.82rem;
+    letter-spacing:.03em; padding:8px 16px; border-radius:20px; margin-bottom:20px;
+  }
+  fieldset.encuesta-fieldset{
+    border:1px solid #e3e8f5; border-radius:14px; padding:22px 22px 8px;
+    margin-bottom:24px; background:var(--gris-claro);
+  }
+  fieldset.encuesta-fieldset legend{
+    font-family:'Oswald',sans-serif; font-size:1.05rem; color:var(--blanco);
+    background:var(--azul-cobalto); padding:6px 16px; border-radius:20px;
+    letter-spacing:.03em;
+  }
+  .encuesta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;}
+  .encuesta-campo{margin-bottom:16px; display:flex; flex-direction:column; gap:6px;}
+  .encuesta-campo label{font-size:.88rem; font-weight:600; color:var(--azul-oscuro);}
+  .encuesta-campo .opcional{font-weight:400; color:var(--texto-gris); font-size:.78rem;}
+  .encuesta-campo input, .encuesta-campo select, .encuesta-campo textarea{
+    font-family:'Inter',sans-serif; font-size:.92rem; padding:10px 12px;
+    border:1px solid #ccd4e8; border-radius:8px; background:var(--blanco);
+    color:var(--texto-oscuro); resize:vertical;
+  }
+  .encuesta-campo input:focus, .encuesta-campo select:focus, .encuesta-campo textarea:focus{
+    outline:2px solid var(--azul-cobalto); outline-offset:1px; border-color:var(--azul-cobalto);
+  }
+  .encuesta-mensaje{margin:14px 0; font-weight:600; text-align:center; min-height:1.2em;}
+  .encuesta-mensaje.ok{color:#1c7d3f;}
+  .encuesta-mensaje.error{color:var(--rojo-oscuro);}
+  .encuesta-nota{font-size:.8rem; color:var(--texto-gris); text-align:center; margin-top:10px;}
+  #btnEnviarEncuesta:disabled{opacity:.6; cursor:not-allowed;}
 </style>
 </head>
 <body>
@@ -247,6 +280,7 @@
         <button>Graduados ▾</button>
         <div class="dropdown">
           <button onclick="showPage('graduados')">Seguimiento a Graduados</button>
+          <button onclick="showPage('encuesta-graduados')">Encuesta a Graduados (en línea)</button>
           <button onclick="showPage('resultados-grado')">Resultados Grado</button>
           <button onclick="showPage('resultados-posgrado')">Resultados Posgrado</button>
         </div>
@@ -600,6 +634,203 @@
         <h3 style="color:#fff;">Ayúdanos respondiendo la encuesta</h3>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSciscOHJ6XXhl0FgxtuBTqhWLxsYrVu33rNbUcpgJbv2U0ADw/viewform?usp=sf_link" target="_blank">Ir a la encuesta</a>
       </div>
+
+      <div class="job-card" style="border-left-color:var(--azul-cobalto);">
+        <img class="thumb" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80" alt="Encuesta de seguimiento a graduados en línea">
+        <div>
+          <h3 style="margin:0 0 6px;">Encuesta institucional de Seguimiento a Graduados</h3>
+          <p style="margin:0 0 10px;">Instrumento propio de la Facultad, elaborado a partir de los ejes de Gestión Institucional, Academia, Vinculación con la Sociedad e Investigación. Tus respuestas se registran directamente en la base de datos del Seguimiento a Graduados.</p>
+          <button class="apply" style="border:none; cursor:pointer;" onclick="showPage('encuesta-graduados')">Responder la encuesta en línea</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENCUESTA A GRADUADOS (instrumento propio) ============ -->
+  <section id="encuesta-graduados" class="page">
+    <div class="hero">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">Graduados · Instrumento de Seguimiento</span>
+          <h1>Encuesta de Seguimiento a Graduados</h1>
+          <p>Instrumento elaborado por la Facultad de Cultura Física para las carreras de Pedagogía de la Actividad Física y Deporte y Entrenamiento Deportivo. Tus respuestas alimentan la base de datos institucional de Seguimiento a Graduados y son confidenciales para fines de mejora académica.</p>
+        </div>
+        <div class="hero-img">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=80" alt="Encuesta de seguimiento a graduados">
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <p id="encuestaIntro">Esta encuesta está organizada en cinco secciones: <strong>Datos generales</strong>, <strong>Gestión Institucional</strong>, <strong>Academia</strong>, <strong>Vinculación con la Sociedad</strong> e <strong>Investigación</strong>. Tómate unos minutos para responder con la mayor sinceridad posible; no hay respuestas correctas o incorrectas.</p>
+
+      <div id="encuestaContador" class="encuesta-contador">Cargando número de respuestas registradas…</div>
+
+      <form id="formEncuestaGraduados" novalidate>
+
+        <fieldset class="encuesta-fieldset">
+          <legend>1. Datos generales</legend>
+
+          <div class="encuesta-grid">
+            <div class="encuesta-campo">
+              <label for="eg_nombres">Nombres y apellidos <span class="opcional">(opcional)</span></label>
+              <input type="text" id="eg_nombres" name="nombres" autocomplete="name">
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_correo">Correo electrónico</label>
+              <input type="email" id="eg_correo" name="correo" required autocomplete="email">
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_telefono">Teléfono de contacto <span class="opcional">(opcional)</span></label>
+              <input type="tel" id="eg_telefono" name="telefono" autocomplete="tel">
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_carrera">Carrera que cursó</label>
+              <select id="eg_carrera" name="carrera" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="Pedagogía de la Actividad Física y Deporte">Pedagogía de la Actividad Física y Deporte</option>
+                <option value="Entrenamiento Deportivo">Entrenamiento Deportivo</option>
+                <option value="Maestría en Actividad Física">Maestría en Actividad Física</option>
+                <option value="Maestría en Entrenamiento Deportivo">Maestría en Entrenamiento Deportivo</option>
+              </select>
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_anio">Año de graduación</label>
+              <input type="number" id="eg_anio" name="anioGraduacion" min="1990" max="2026" required>
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_titulo">Título de tercer/cuarto nivel obtenido <span class="opcional">(opcional)</span></label>
+              <input type="text" id="eg_titulo" name="titulo">
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_situacion">Situación laboral actual</label>
+              <select id="eg_situacion" name="situacionLaboral" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="Empleado/a en relación de dependencia">Empleado/a en relación de dependencia</option>
+                <option value="Trabajador/a independiente o emprendedor/a">Trabajador/a independiente o emprendedor/a</option>
+                <option value="Desempleado/a">Desempleado/a</option>
+                <option value="Cursando estudios de posgrado">Cursando estudios de posgrado</option>
+              </select>
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_institucion">Institución o lugar donde trabaja actualmente <span class="opcional">(opcional)</span></label>
+              <input type="text" id="eg_institucion" name="institucionTrabajo">
+            </div>
+            <div class="encuesta-campo">
+              <label for="eg_relacion">¿Su empleo actual está relacionado con su formación?</label>
+              <select id="eg_relacion" name="relacionEmpleoFormacion" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="Totalmente relacionado">Totalmente relacionado</option>
+                <option value="Parcialmente relacionado">Parcialmente relacionado</option>
+                <option value="No relacionado">No relacionado</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="encuesta-fieldset">
+          <legend>2. Gestión Institucional</legend>
+          <div class="encuesta-campo">
+            <label for="eg_gi_f1">¿Qué servicios universitarios aportaron positivamente a su formación profesional?</label>
+            <textarea id="eg_gi_f1" name="gi_f1_servicios" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_gi_o1">¿Qué oportunidades del campo laboral se gestionaron con la Facultad y favorecieron su formación profesional?</label>
+            <textarea id="eg_gi_o1" name="gi_o1_oportunidadesLaborales" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_gi_d1">¿Qué dificultades encontró en los servicios universitarios y actividades extracurriculares durante su formación?</label>
+            <textarea id="eg_gi_d1" name="gi_d1_dificultadesServicios" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_gi_d2">¿Cuál es su evaluación de los espacios físicos y recursos tecnológicos de la Carrera y la Facultad?</label>
+            <textarea id="eg_gi_d2" name="gi_d2_espaciosRecursos" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_gi_d3">¿Cuál es su percepción sobre la articulación entre empleadores y la Carrera a través de la Bolsa de Empleo?</label>
+            <textarea id="eg_gi_d3" name="gi_d3_bolsaEmpleo" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_gi_a1">¿Qué factores externos dificultaron su permanencia o culminación de estudios?</label>
+            <textarea id="eg_gi_a1" name="gi_a1_factoresPermanencia" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_gi_a2">¿Qué factores externos del contexto laboral dificultan su empleabilidad y desempeño profesional?</label>
+            <textarea id="eg_gi_a2" name="gi_a2_factoresEmpleabilidad" rows="2" required></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="encuesta-fieldset">
+          <legend>3. Academia</legend>
+          <div class="encuesta-campo">
+            <label for="eg_ac_f1">¿Qué asignaturas o elementos del currículo reconoce como altamente pertinentes para su desempeño profesional?</label>
+            <textarea id="eg_ac_f1" name="ac_f1_asignaturasPertinentes" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_ac_o1">¿Qué demandas emergentes del sector educativo, social o deportivo podrían incorporarse al currículo?</label>
+            <textarea id="eg_ac_o1" name="ac_o1_demandasEmergentes" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_ac_d1">¿Qué asignaturas, tecnologías del aprendizaje (TAC) o habilidades blandas no se desarrollaron lo suficiente durante su formación?</label>
+            <textarea id="eg_ac_d1" name="ac_d1_brechasFormacion" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_ac_a1">¿Qué situaciones del mercado laboral podrían desplazar o reducir la pertinencia de la Carrera?</label>
+            <textarea id="eg_ac_a1" name="ac_a1_amenazasMercado" rows="2" required></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="encuesta-fieldset">
+          <legend>4. Vinculación con la Sociedad</legend>
+          <div class="encuesta-campo">
+            <label for="eg_vs_f1">¿Cómo aportó su participación en proyectos de vinculación a su formación profesional?</label>
+            <textarea id="eg_vs_f1" name="vs_f1_aporteVinculacion" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_vs_o1">¿Cómo aportaron las instituciones externas y los proyectos de vinculación a su formación profesional?</label>
+            <textarea id="eg_vs_o1" name="vs_o1_aporteInstitucionesExternas" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_vs_d1">¿Qué aspectos considera deficientes en los procesos administrativos para la planificación y ejecución de proyectos de vinculación?</label>
+            <textarea id="eg_vs_d1" name="vs_d1_deficienciasAdministrativas" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_vs_a1">¿Qué limitaciones percibió de las instituciones externas para la ejecución de los proyectos de vinculación?</label>
+            <textarea id="eg_vs_a1" name="vs_a1_limitacionesExternas" rows="2" required></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="encuesta-fieldset">
+          <legend>5. Investigación</legend>
+          <div class="encuesta-campo">
+            <label for="eg_in_f1">Desde su experiencia profesional actual, ¿cómo percibe la investigación que produce la Facultad en relación con la problemática social de la Actividad Física y el Deporte?</label>
+            <textarea id="eg_in_f1" name="in_f1_percepcionInvestigacion" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_in_f2">¿Cómo la Carrera permitió o permite su participación en proyectos de investigación y publicación científica?</label>
+            <textarea id="eg_in_f2" name="in_f2_participacionPublicacion" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_in_o1">¿Qué oportunidades existen en el campo laboral para que la Facultad realice investigaciones orientadas a resolver problemáticas sociales del área?</label>
+            <textarea id="eg_in_o1" name="in_o1_oportunidadesInvestigacion" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_in_d1">¿Qué debilidades percibe en el desarrollo de investigación de la Facultad para proponer soluciones y ofertar posgrados pertinentes?</label>
+            <textarea id="eg_in_d1" name="in_d1_debilidadesInvestigacion" rows="2" required></textarea>
+          </div>
+          <div class="encuesta-campo">
+            <label for="eg_in_a1">¿Cómo son los procesos administrativos de las instituciones para sostener convenios y alianzas de investigación?</label>
+            <textarea id="eg_in_a1" name="in_a1_procesosConvenios" rows="2" required></textarea>
+          </div>
+        </fieldset>
+
+        <div id="encuestaMensaje" class="encuesta-mensaje" role="status" aria-live="polite"></div>
+
+        <div style="text-align:center; margin-top:8px;">
+          <button type="submit" class="apply" id="btnEnviarEncuesta" style="border:none; cursor:pointer; font-size:.95rem; padding:12px 34px;">Enviar mis respuestas</button>
+        </div>
+        <p class="encuesta-nota">Tus respuestas se guardan en la base de datos de Seguimiento a Graduados de la Facultad y son visibles únicamente con fines de análisis institucional.</p>
+      </form>
     </div>
   </section>
 
@@ -844,7 +1075,78 @@
     document.getElementById(id).classList.add('active');
     document.getElementById('backBar').style.display = (id === 'inicio') ? 'none' : 'block';
     window.scrollTo({top:0, behavior:'smooth'});
+    if(id === 'encuesta-graduados'){ actualizarContadorEncuesta(); }
   }
+
+  /* ===== BASE DE DATOS DE LA ENCUESTA DE SEGUIMIENTO A GRADUADOS ===== */
+  /* Los registros se guardan como datos compartidos (shared) bajo el prefijo
+     "respuesta_encuesta_graduados:" para que la Facultad pueda consultar el
+     total de participación. Cada envío crea una llave única. */
+
+  async function actualizarContadorEncuesta(){
+    var contador = document.getElementById('encuestaContador');
+    if(!contador || !window.storage || !window.storage.list) {
+      if(contador) contador.textContent = '';
+      return;
+    }
+    try{
+      var resultado = await window.storage.list('respuesta_encuesta_graduados:', true);
+      var total = (resultado && resultado.keys) ? resultado.keys.length : 0;
+      contador.textContent = 'Respuestas registradas hasta el momento: ' + total;
+    }catch(err){
+      contador.textContent = '';
+      console.error('No se pudo leer el contador de respuestas:', err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    actualizarContadorEncuesta();
+
+    var form = document.getElementById('formEncuestaGraduados');
+    if(!form) return;
+
+    form.addEventListener('submit', async function(evento){
+      evento.preventDefault();
+      var mensaje = document.getElementById('encuestaMensaje');
+      var boton = document.getElementById('btnEnviarEncuesta');
+
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+
+      boton.disabled = true;
+      boton.textContent = 'Enviando…';
+      mensaje.className = 'encuesta-mensaje';
+      mensaje.textContent = '';
+
+      var datos = Object.fromEntries(new FormData(form).entries());
+      datos.fechaEnvio = new Date().toISOString();
+
+      var llave = 'respuesta_encuesta_graduados:' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+
+      try{
+        if(!window.storage || !window.storage.set){
+          throw new Error('Almacenamiento no disponible');
+        }
+        var guardado = await window.storage.set(llave, JSON.stringify(datos), true);
+        if(!guardado){
+          throw new Error('El guardado no devolvió confirmación');
+        }
+        mensaje.classList.add('ok');
+        mensaje.textContent = '¡Gracias! Tus respuestas fueron registradas correctamente en la base de datos de Seguimiento a Graduados.';
+        form.reset();
+        actualizarContadorEncuesta();
+      }catch(err){
+        console.error('Error al guardar la encuesta:', err);
+        mensaje.classList.add('error');
+        mensaje.textContent = 'Ocurrió un problema al guardar tus respuestas. Por favor, inténtalo nuevamente en unos minutos.';
+      }finally{
+        boton.disabled = false;
+        boton.textContent = 'Enviar mis respuestas';
+      }
+    });
+  });
 </script>
 
 </body>
